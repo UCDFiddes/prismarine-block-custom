@@ -207,7 +207,9 @@ function provider (registry, { Biome, version }) {
     }
 
     static fromProperties (typeId, properties, biomeId) {
-      const block = typeof typeId === 'string' ? registry.blocksByName[typeId] : registry.blocks[typeId]
+      let block = typeof typeId === 'string' ? registry.blocksByName[typeId] : registry.blocks[typeId]
+      // temporarily default to stone props
+      if (typeof block === "undefined") block = registry.blocksByName["stone"]
 
       if (version.type === 'pc') {
         if (block.states) {
